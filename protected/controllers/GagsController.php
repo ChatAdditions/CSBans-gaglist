@@ -37,7 +37,8 @@ class GagsController extends Controller
 
 	public function actionIndex()
 	{
-		$model=new Gags('search');
+		//$model=new Gags('search');
+        $model = Gags::model()->with('admin');
 		$model->unsetAttributes();
 		if (isset($_GET['Gags'])) {
             $model->attributes = $_GET['Gags'];
@@ -45,7 +46,7 @@ class GagsController extends Controller
 
 		$dataProvider=new CActiveDataProvider('Gags', array(
 			'criteria' => array(
-                'order' => '`id` DESC'),
+                'order' => '`create_time` DESC'),
 			'pagination' => array(
 				'pageSize' =>  Yii::app()->config->bans_per_page)
             )
@@ -60,7 +61,7 @@ class GagsController extends Controller
 
 	public function loadModel($id)
 	{
-		$model=Gags::model()->findByPk($id);
+		$model=Gags::model()->with('admin')->findByPk($id);
 		if ($model === null) {
             throw new CHttpException(404, 'Запись не найдена.');
         }

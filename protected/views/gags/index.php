@@ -38,11 +38,15 @@ $this->widget('bootstrap.widgets.TbGridView', array(
 		'displayFirstAndLast' => true,
 	),
     'columns'=>array(
-
+        array(
+            'header' => 'Дата',
+            'value' => 'date("d.m.Y H:i", $data->create_time)',
+            'htmlOptions' => array('style' => 'width:100px'),
+        ),
 		array(
 			'header' => 'Ник',
 			'type' => 'raw',
-			'value' => '$data->country . " " . CHtml::encode(mb_substr($data->name, 0, 18, "UTF-8"))'
+			'value' => '$data->country . " " . CHtml::encode($data->name)'
 		),
 
         array(
@@ -54,10 +58,19 @@ $this->widget('bootstrap.widgets.TbGridView', array(
             )
         ),
 
+        array(
+            'header' => 'Админ',
+            'type' => 'raw',
+            'value' => '$data->admin->id ? CHtml::link(CHtml::encode(mb_substr($data->admin_name, 0, 18, "UTF-8")), Yii::app()->urlManager->baseUrl . "/amxadmins/#admin_" . $data->admin->id) : CHtml::encode(mb_substr($data->admin_name, 0, 18, "UTF-8"))',
+            'htmlOptions' => array(
+                'style' => 'width: 130px'
+            )
+        ),
+
 		array(
 			'header' => 'Срок до',
-			'value' => 'date("d.m.Y H:i", $data->unban_time)',
-			'htmlOptions' => array('style' => 'width:130px'),
+			'value' => '($data->unban_time >= 0) ? ($data->unban_time ? date("d.m.Y H:i", $data->unban_time) : "Навсегда") : "Разбанен"',
+			'htmlOptions' => array('style' => 'width:100px'),
 		),
 
         array(
