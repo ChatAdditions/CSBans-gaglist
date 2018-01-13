@@ -45,10 +45,17 @@ class GagsController extends Controller
         }
 
 		$dataProvider=new CActiveDataProvider('Gags', array(
-			'criteria' => array(
-                'order' => '`create_time` DESC'),
 			'pagination' => array(
-				'pageSize' =>  Yii::app()->config->bans_per_page)
+				'pageSize' =>  Yii::app()->config->bans_per_page),
+                'sort' => array(
+                    'defaultOrder' => '`create_time` DESC',
+                    'attributes' => array(
+                        'create_time',
+                        'name',
+                        'admin_name',
+                        'reason'
+                    )
+                )
             )
 		 );
 

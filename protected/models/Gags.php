@@ -7,7 +7,8 @@
  * @property string $admin_name Ник админа
  * @property string $admin_steamid Стим админа
  * @property integer $create_time Дата бана
- * @property integer $unban_time Дата истечения бана
+ * @property integer $expired_time Дата истечения бана
+ * @property integer $reason Причина
  *
  * The followings are the available model relations:
  * @property Amxadmins $admin
@@ -32,7 +33,7 @@ class Gags extends CActiveRecord
 			array('name, admin_name', 'required'),
 			array('ip', 'match', 'pattern' => '/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/'),
 			array('steamid, admin_steamid', 'match', 'pattern' => '/^(STEAM|VALVE)_([0-9]):([0-9]):\d{1,21}$/'),
-			array('id, steamid, name, ip, admin_name, admin_steamid, create_time, unban_time', 'safe', 'on'=>'search'),
+			array('id, steamid, name, ip, admin_name, admin_steamid, create_time, expired_time', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -56,8 +57,9 @@ class Gags extends CActiveRecord
 			'ip'		    	=> 'IP игрока',
 			'steamid'			=> 'Steam  игрока',
 			'name'		        => 'Ник игрока',
-			'unban_time'		=> 'Истекает',
-			'admin_name'		=> 'Ник админа'
+			'expired_time'		=> 'Истекает',
+			'admin_name'		=> 'Ник админа',
+			'reason'            => 'Причина'
 		);
 	}
 
