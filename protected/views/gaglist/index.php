@@ -21,17 +21,17 @@ $this->renderPartial('_search',array(
 ));
 
 $this->widget('bootstrap.widgets.TbGridView', array(
-    'type'=>'striped bordered condensed',
+    'type'=>'striped bordered condensed hoverable',
     'id'=>'gags-grid',
     'dataProvider'=>isset($_GET['Gaglist']) ? $model->search() : $dataProvider,
-    'enableSorting' => array('created_at', 'name', 'admin_name', 'reason'),
+    'enableSorting' => array('created_at'),
     'summaryText' => 'Показано с {start} по {end} гагов из {count}. Страница {page} из {pages}',
     'htmlOptions' => array(
         'style' => 'width: 100%'
     ),
     'rowHtmlOptionsExpression'=>'array(
         "id" => "gag_$data->id",
-        "class" => ($data->expire_at < time() && $data->expire_at) ? "bantr success" : "bantr"
+        "class" => $data->isGagExpired() ? "bantr success" : "bantr"
     )',
     'pager' => array(
         'class'=>'bootstrap.widgets.TbPager',
@@ -48,31 +48,26 @@ $this->widget('bootstrap.widgets.TbGridView', array(
             'header' => 'Ник',
             'type' => 'raw',
             'name' => 'name',
-            'value' => '$data->country . " " . CHtml::encode($data->name)'
-        ),
-        array(
-            'header' => 'STEAM_ID',
-            'type' => 'raw',
-            'value' => '$data->authid',
-            'htmlOptions' => array(
-                'style' => 'width: 130px'
-            )
+            'value' => '$data->country . " " . CHtml::encode($data->name)',
+            'htmlOptions' => array('style' => 'width:100px'),
         ),
         array(
             'header' => 'Админ',
             'type' => 'raw',
             'name' => 'admin_name',
-            'value' => '$data->admin ? CHtml::link(CHtml::encode(mb_substr($data->admin_name, 0, 18, "UTF-8")), Yii::app()->urlManager->baseUrl . "/amxadmins/#admin_" . $data->admin->id) : CHtml::encode(mb_substr($data->admin_name, 0, 18, "UTF-8"))',
-            'htmlOptions' => array(
-                'style' => 'width: 130px'
-            )
-        ),
-        array(
-            'header' => 'Срок до',
-            'value' => '($data->expire_at >= 0) ? ($data->expire_at ? date("d.m.Y H:i", strtotime($data->expire_at)) : "Навсегда") : "Разбанен"',
+            'value' => '$data->getAdmin()',
             'htmlOptions' => array('style' => 'width:100px'),
         ),
-        
+        array(
+            'header' => 'Срок',
+            'value' => '$data->getGagTimeleft()',
+            'htmlOptions' => array('style' => 'width:100px'),
+        ),
+        array(
+            'header' => 'Тип блокировки',
+            'value' => '$data->getGagType()',
+            'htmlOptions' => array('style' => 'width:100px'),
+        ),
         array(
             'header' => 'Причина',
             'name' => 'reason',

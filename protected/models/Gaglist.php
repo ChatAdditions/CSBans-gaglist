@@ -9,6 +9,7 @@
  * @property integer $created_at Дата бана
  * @property integer $expire_at Дата истечения бана
  * @property integer $reason Причина
+ * @property integer $flags Тип блокировки
  *
  * The followings are the available model relations:
  * @property Amxadmins $admin
@@ -96,5 +97,48 @@ class Gaglist extends CActiveRecord
                 'pageSize' => Yii::app()->config->bans_per_page
             )
         ));
+    }
+
+    public function getGagType() {
+        $str = "";
+        
+        if($this->flags & (1<<0)) {
+            $str.="Chat + ";
+        }
+        if($this->flags & (1<<1)) {
+            $str.="TeamChat + ";
+        }
+        if($this->flags & (1<<1)) {
+            $str.="Voice + ";
+        }
+
+        $str = substr($str, 0, -3);
+
+        return $str;
+    }
+
+    public function getGagTimeleft($expireAt) {
+        $secondsLeft = strtotime($this->expire_at) - strtotime($this->created_at);
+        if($secondsLeft > 0) {
+            return Prefs::date2word($secondsLeft / 60);
+        } else {
+            return "Разбанен";
+        }
+    }
+
+    public function isGagExpired() {
+        return strtotime($this->expire_at) < time() && strtotime($this->expire_at);
+    }
+
+    public function getAdmin() {
+        $adminName = CHtml::encode(mb_substr($this->admin_name, 0, 18, "UTF-8"));
+        if(!$this->admin) { 
+            return $adminName;
+        }
+
+        return CHtml::link(
+            $adminName, 
+            Yii::app()->urlManager->baseUrl . "/amxadmins/#admin_" . $this->admin->id
+        );
     }
 }
