@@ -8,7 +8,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 ));
 
 echo $form->textFieldRow($model,'name',array('maxlength'=>100));
-echo $form->textFieldRow($model,'steamid',array('maxlength'=>20));
+echo $form->textFieldRow($model,'authid',array('maxlength'=>20));
 echo $form->textFieldRow($model,'admin_name',array('maxlength'=>100));
 
 $this->widget('bootstrap.widgets.TbButton', array(
