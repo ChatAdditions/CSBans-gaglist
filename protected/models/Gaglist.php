@@ -109,7 +109,7 @@ class Gaglist extends CActiveRecord
             $str.="Chat + ";
         }
         if($this->flags & $gagFlag_TeamChat) {
-            $str.="TeamChat + ";
+            $str.="Team chat + ";
         }
         if($this->flags & $gagFlag_Voice) {
             $str.="Voice + ";

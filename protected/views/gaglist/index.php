@@ -47,14 +47,12 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         array(
             'header' => 'Ник',
             'type' => 'raw',
-            'name' => 'name',
             'value' => '$data->country . " " . CHtml::encode($data->name)',
             'htmlOptions' => array('style' => 'width:100px'),
         ),
         array(
             'header' => 'Админ',
             'type' => 'raw',
-            'name' => 'admin_name',
             'value' => '$data->getAdmin()',
             'htmlOptions' => array('style' => 'width:100px'),
         ),
@@ -70,7 +68,6 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         ),
         array(
             'header' => 'Причина',
-            'name' => 'reason',
             'value' => '$data->reason ? $data->reason : ""',
             'htmlOptions' => array('style' => 'width:100px'),
         ),
