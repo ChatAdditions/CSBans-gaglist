@@ -8,6 +8,9 @@ CSBans addon for [ChatAdditions](https://github.com/ChatAdditions/ChatAdditions_
 [![CSBans dependency](https://img.shields.io/badge/CSBans-%3E%3D1.3-blue)](https://github.com/craft-soft/CS-Bans)
 </br>
 
+## Requirments
+- Installed on HLDS server [ChatAdditions_AMXX](https://github.com/ChatAdditions/ChatAdditions_AMXX) [![ChatAdditions dependency](https://img.shields.io/badge/ChatAdditions-%3E%3D1.3.0-blue)](https://github.com/ChatAdditions/ChatAdditions_AMXX)
+
 ## Installation
 - upload `protected/*` to CSBans folder
 - In CSBans admin panel add link for header URL's, /gaglist/index
