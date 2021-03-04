@@ -4,7 +4,7 @@ $page = 'GAG-лист';
 $this->pageTitle = Yii::app()->name . ' - ' . $page;
 
 $this->breadcrumbs=array(
-	$page,
+    $page,
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -22,21 +22,21 @@ $this->renderPartial('_search',array(
 
 $this->widget('bootstrap.widgets.TbGridView', array(
     'type'=>'striped bordered condensed',
-	'id'=>'gags-grid',
+    'id'=>'gags-grid',
     'dataProvider'=>isset($_GET['Gaglist']) ? $model->search() : $dataProvider,
     'enableSorting' => array('created_at', 'name', 'admin_name', 'reason'),
-	'summaryText' => 'Показано с {start} по {end} гагов из {count}. Страница {page} из {pages}',
-	'htmlOptions' => array(
-		'style' => 'width: 100%'
-	),
-	'rowHtmlOptionsExpression'=>'array(
-		"id" => "gag_$data->id",
-		"class" => ($data->expire_at < time() && $data->expire_at) ? "bantr success" : "bantr"
-	)',
-	'pager' => array(
-		'class'=>'bootstrap.widgets.TbPager',
-		'displayFirstAndLast' => true,
-	),
+    'summaryText' => 'Показано с {start} по {end} гагов из {count}. Страница {page} из {pages}',
+    'htmlOptions' => array(
+        'style' => 'width: 100%'
+    ),
+    'rowHtmlOptionsExpression'=>'array(
+        "id" => "gag_$data->id",
+        "class" => ($data->expire_at < time() && $data->expire_at) ? "bantr success" : "bantr"
+    )',
+    'pager' => array(
+        'class'=>'bootstrap.widgets.TbPager',
+        'displayFirstAndLast' => true,
+    ),
     'columns'=>array(
         array(
             'header' => 'Дата',
@@ -44,12 +44,12 @@ $this->widget('bootstrap.widgets.TbGridView', array(
             'value' => 'date("d.m.Y H:i", $data->created_at)',
             'htmlOptions' => array('style' => 'width:100px'),
         ),
-		array(
-			'header' => 'Ник',
-			'type' => 'raw',
-			'name' => 'name',
-			'value' => '$data->country . " " . CHtml::encode($data->name)'
-		),
+        array(
+            'header' => 'Ник',
+            'type' => 'raw',
+            'name' => 'name',
+            'value' => '$data->country . " " . CHtml::encode($data->name)'
+        ),
         array(
             'header' => 'STEAM_ID',
             'type' => 'raw',
