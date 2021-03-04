@@ -25,7 +25,7 @@ class Gaglist extends CActiveRecord
 
     public function tableName()
     {
-        return 'players_gags';
+        return 'chatadditions_gags';
     }
 
     public function rules()
