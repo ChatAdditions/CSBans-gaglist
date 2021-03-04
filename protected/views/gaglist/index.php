@@ -41,7 +41,7 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         array(
             'header' => 'Дата',
             'name' => 'created_at',
-            'value' => 'date("d.m.Y H:i", $data->created_at)',
+            'value' => 'date("d.m.Y H:i", strtotime($data->created_at))',
             'htmlOptions' => array('style' => 'width:100px'),
         ),
         array(
@@ -69,7 +69,7 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         ),
         array(
             'header' => 'Срок до',
-            'value' => '($data->expire_at >= 0) ? ($data->expire_at ? date("d.m.Y H:i", $data->expire_at) : "Навсегда") : "Разбанен"',
+            'value' => '($data->expire_at >= 0) ? ($data->expire_at ? date("d.m.Y H:i", strtotime($data->expire_at)) : "Навсегда") : "Разбанен"',
             'htmlOptions' => array('style' => 'width:100px'),
         ),
         
