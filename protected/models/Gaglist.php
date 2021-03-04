@@ -1,19 +1,19 @@
 <?php
 /**
  * @property integer $id ID бана
- * @property string $steamid Стим игрока
+ * @property string $authid Стим игрока
  * @property string $name Ник игрока
  * @property string $ip IP игрока
  * @property string $admin_name Ник админа
- * @property string $admin_steamid Стим админа
- * @property integer $create_time Дата бана
- * @property integer $expired_time Дата истечения бана
+ * @property string $admin_authid Стим админа
+ * @property integer $created_at Дата бана
+ * @property integer $expire_at Дата истечения бана
  * @property integer $reason Причина
  *
  * The followings are the available model relations:
  * @property Amxadmins $admin
  */
-class Gags extends CActiveRecord
+class Gaglist extends CActiveRecord
 {
 	public $country = null;
 
@@ -24,7 +24,7 @@ class Gags extends CActiveRecord
 
     public function tableName()
 	{
-		return 'ucc_gag';
+		return 'players_gags';
 	}
 
     public function rules()
@@ -32,8 +32,8 @@ class Gags extends CActiveRecord
 		return array(
 			array('name, admin_name', 'required'),
 			array('ip', 'match', 'pattern' => '/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/'),
-			array('steamid, admin_steamid', 'match', 'pattern' => '/^(STEAM|VALVE)_([0-9]):([0-9]):\d{1,21}$/'),
-			array('id, steamid, name, ip, admin_name, admin_steamid, create_time, expired_time', 'safe', 'on'=>'search'),
+			array('authid, admin_authid', 'match', 'pattern' => '/^(STEAM|VALVE)_([0-9]):([0-9]):\d{1,21}$/'),
+			array('id, authid, name, ip, admin_name, admin_authid, created_at, expire_at', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -45,7 +45,7 @@ class Gags extends CActiveRecord
                 'Amxadmins',
                 '',
                 'on' => '`admin`.`steamid` = `t`.`admin_name` OR '
-                    . '`admin`.`steamid` = `t`.`admin_steamid`'
+                    . '`admin`.`steamid` = `t`.`admin_authid`'
             )
 		);
 	}
@@ -55,9 +55,9 @@ class Gags extends CActiveRecord
 		return array(
 			'id'				=> 'Bid',
 			'ip'		    	=> 'IP игрока',
-			'steamid'			=> 'Steam  игрока',
+			'authid'			=> 'Steam  игрока',
 			'name'		        => 'Ник игрока',
-			'expired_time'		=> 'Истекает',
+			'expire_at'			=> 'Истекает',
 			'admin_name'		=> 'Ник админа',
 			'reason'            => 'Причина'
 		);
@@ -84,11 +84,11 @@ class Gags extends CActiveRecord
 
 		$criteria->compare('t.id',$this->id);
 		$criteria->addSearchCondition('t.ip',$this->ip);
-		$criteria->addSearchCondition('t.steamid',$this->steamid);
+		$criteria->addSearchCondition('t.authid',$this->authid);
 		$criteria->addSearchCondition('t.name',$this->name);
         $criteria->addSearchCondition('t.admin_name',$this->admin_name);
 
-		$criteria->order = '`create_time` DESC';
+		$criteria->order = '`created_at` DESC';
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

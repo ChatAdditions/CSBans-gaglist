@@ -1,6 +1,6 @@
 <?php
 
-class GagsController extends Controller
+class GaglistController extends Controller
 {
 	public $layout='//layouts/column1';
 
@@ -37,20 +37,20 @@ class GagsController extends Controller
 
 	public function actionIndex()
 	{
-		//$model=new Gags('search');
-        $model = Gags::model()->with('admin');
+		//$model=new Gaglist('search');
+        $model = Gaglist::model()->with('admin');
 		$model->unsetAttributes();
-		if (isset($_GET['Gags'])) {
-            $model->attributes = $_GET['Gags'];
+		if (isset($_GET['Gaglist'])) {
+            $model->attributes = $_GET['Gaglist'];
         }
 
-		$dataProvider=new CActiveDataProvider('Gags', array(
+		$dataProvider=new CActiveDataProvider('Gaglist', array(
 			'pagination' => array(
 				'pageSize' =>  Yii::app()->config->bans_per_page),
                 'sort' => array(
-                    'defaultOrder' => '`create_time` DESC',
+                    'defaultOrder' => '`created_at` DESC',
                     'attributes' => array(
-                        'create_time',
+                        'created_at',
                         'name',
                         'admin_name',
                         'reason'
@@ -68,7 +68,7 @@ class GagsController extends Controller
 
 	public function loadModel($id)
 	{
-		$model=Gags::model()->with('admin')->findByPk($id);
+		$model=Gaglist::model()->with('admin')->findByPk($id);
 		if ($model === null) {
             throw new CHttpException(404, 'Запись не найдена.');
         }
