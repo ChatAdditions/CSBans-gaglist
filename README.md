@@ -5,6 +5,8 @@ CSBans addon for [ChatAdditions](https://github.com/ChatAdditions/ChatAdditions_
 
 [![Release status](https://img.shields.io/github/v/release/ChatAdditions/CSBans-gaglist?include_prereleases)](https://github.com/ChatAdditions/CSBans-gaglist/releases/latest)
 [![Discussions](https://img.shields.io/badge/discussions-on%20github-informational)](https://github.com/ChatAdditions/CSBans-gaglist/discussions)
+
+[![CSBans dependency](https://img.shields.io/badge/CSBans-%3E%3D1.3-blue)](https://github.com/craft-soft/CS-Bans)
 </br>
 
 ## Installation
