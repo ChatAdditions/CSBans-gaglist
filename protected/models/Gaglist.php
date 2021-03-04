@@ -101,14 +101,17 @@ class Gaglist extends CActiveRecord
 
     public function getGagType() {
         $str = "";
-        
-        if($this->flags & (1<<0)) {
+        $gagFlag_Chat = (1<<0);
+        $gagFlag_TeamChat = (1<<1);
+        $gagFlag_Voice = (1<<2);
+
+        if($this->flags & $gagFlag_Chat) {
             $str.="Chat + ";
         }
-        if($this->flags & (1<<1)) {
+        if($this->flags & $gagFlag_TeamChat) {
             $str.="TeamChat + ";
         }
-        if($this->flags & (1<<1)) {
+        if($this->flags & $gagFlag_Voice) {
             $str.="Voice + ";
         }
 
