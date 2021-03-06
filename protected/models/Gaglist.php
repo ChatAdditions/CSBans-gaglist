@@ -120,7 +120,7 @@ class Gaglist extends CActiveRecord
         return $str;
     }
 
-    public function getGagTimeleft($expireAt) {
+    public function getGagTimeleft() {
         $secondsLeft = strtotime($this->expire_at) - strtotime($this->created_at);
         if($secondsLeft > 0) {
             return Prefs::date2word($secondsLeft / 60);
